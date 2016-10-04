@@ -16,11 +16,10 @@ public class OI {
     // Joystick stick = new Joystick(port);
     // Button button = new JoystickButton(stick, buttonNumber);
 	
-	private final Joystick[] controllers = new Joystick[2];
+	private final Joystick[] controllers = new Joystick[1];
 	
 	public void init() {
 		controllers[0] = new Joystick(Constants.ControllerOnePort);
-		controllers[1] = new Joystick(Constants.ControllerTwoPort);
 	}
 	
 	/**
