@@ -3,7 +3,7 @@ package com._2491nomythic.drive.subsystems;
 import com._2491nomythic.drive.commands.Drive;
 import com._2491nomythic.drive.settings.Constants;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
