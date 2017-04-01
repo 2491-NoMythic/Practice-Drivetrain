@@ -6,6 +6,7 @@ import com._2491nomythic.drive.settings.ControllerMap;
  *
  */
 public class Drive extends CommandBase {
+	double turnSpeed;
 
     public Drive() {
         // Use requires() here to declare subsystem dependencies
@@ -19,7 +20,10 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drivetrain.drive(-oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveLeftAxis), -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveRightAxis));
+    	turnSpeed = oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
+
+    	
+    	drivetrain.drive(-oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, 0.05) + 0.5 * turnSpeed, -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, 0.05) - 0.5 * turnSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
