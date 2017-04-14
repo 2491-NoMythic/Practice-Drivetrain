@@ -6,12 +6,11 @@ import com._2491nomythic.drive.settings.ControllerMap;
  *
  */
 public class Drive extends CommandBase {
-	double turnSpeed;
+	private double turnSpeed, leftSpeed, rightSpeed;
 
     public Drive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -20,10 +19,11 @@ public class Drive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	turnSpeed = oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
-
-    	
-    	drivetrain.drive(-oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, 0.05) + 0.5 * turnSpeed, -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, 0.05) - 0.5 * turnSpeed);
+    	turnSpeed = 0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
+    	leftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, .05);
+    	rightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, .05);
+    
+    	drivetrain.drive(leftSpeed + turnSpeed, rightSpeed - turnSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -39,6 +39,5 @@ public class Drive extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

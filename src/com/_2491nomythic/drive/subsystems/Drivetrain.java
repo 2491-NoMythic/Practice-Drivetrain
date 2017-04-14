@@ -1,6 +1,6 @@
 package com._2491nomythic.drive.subsystems;
 
-import com._2491nomythic.drive.commands.Drive;
+import com._2491nomythic.drive.commands.ProportionalAccelDrive;
 import com._2491nomythic.drive.settings.Constants;
 
 import com.ctre.CANTalon;
@@ -80,7 +80,7 @@ public class Drivetrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new Drive());
+    	setDefaultCommand(new ProportionalAccelDrive());
     }
 }
 
