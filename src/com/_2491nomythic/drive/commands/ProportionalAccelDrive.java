@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class ProportionalAccelDrive extends CommandBase {
-	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval;
+	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition;
 	int state;
 	Timer timer;
 
@@ -36,9 +36,11 @@ public class ProportionalAccelDrive extends CommandBase {
     	
     	switch (state) {
     	case 0:
-    		if (timer.get() < .5) {
-    			leftSpeed = .2 * rawLeftSpeed;
-    			rightSpeed = .2 * rawRightSpeed;
+    		time = timer.get() + timeAddition;
+    		timeAddition = 0;
+    		leftSpeed = .2 * rawLeftSpeed;
+    		rightSpeed = .2 * rawRightSpeed;
+    		if (time < accelerationInterval) {
     			state++;
     		}
     		if (Math.abs(rawLeftSpeed) < .2 * rawLeftSpeed && Math.abs(rawRightSpeed) < .2 * rawRightSpeed) {
@@ -46,42 +48,55 @@ public class ProportionalAccelDrive extends CommandBase {
     		}
     		break;
     	case 1:
-    		if (timer.get() > (1*accelerationInterval) && timer.get() < (2*accelerationInterval)) {
-    			leftSpeed = .4 * rawLeftSpeed;
-    			rightSpeed = .4 * rawRightSpeed;
+    		time = timer.get() + timeAddition;
+    		timeAddition = 0;
+    		leftSpeed = .4 * rawLeftSpeed;
+    		rightSpeed = .4 * rawRightSpeed;
+    		if (time > (accelerationInterval) && timer.get() < (2*accelerationInterval)) {
     			state++;
     		}
-    		if (Math.abs(rawLeftSpeed) < .2 * rawLeftSpeed && Math.abs(rawRightSpeed) < .2 * rawRightSpeed) {
+    		if (Math.abs(rawLeftSpeed) < .4 * rawLeftSpeed && Math.abs(rawRightSpeed) < .4 * rawRightSpeed) {
     			timer.reset();
+    			state = 0;
     		}
     		break;
     	case 2:
-    		if (timer.get() > (2*accelerationInterval) && timer.get() < (3*accelerationInterval)) {
-    			leftSpeed = .6 * rawLeftSpeed;
-    			rightSpeed = .6 * rawRightSpeed;
+    		time = timer.get() + timeAddition;
+    		timeAddition = 0;
+    		leftSpeed = .6 * rawLeftSpeed;
+    		rightSpeed = .6 * rawRightSpeed;
+    		if (time > (2*accelerationInterval) && timer.get() < (3*accelerationInterval)) {
     			state++;
     		}
-    		if (Math.abs(rawLeftSpeed) < .2 * rawLeftSpeed && Math.abs(rawRightSpeed) < .2 * rawRightSpeed) {
+    		if (Math.abs(rawLeftSpeed) < .6 * rawLeftSpeed && Math.abs(rawRightSpeed) < .6 * rawRightSpeed) {
     			timer.reset();
+    			state = 1;
+    			timeAddition = .5*accelerationInterval;
     		}
     		break;
     	case 3:
-    		if (timer.get() > (3*accelerationInterval) && timer.get() < (4*accelerationInterval)) {
-    			leftSpeed = .8 * rawLeftSpeed;
-    			rightSpeed = .8 * rawRightSpeed;
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < .2 * rawLeftSpeed && Math.abs(rawRightSpeed) < .2 * rawRightSpeed) {
+    		time = timer.get() + timeAddition;
+    		timeAddition = 0;
+    		leftSpeed = .8 * rawLeftSpeed;
+    		rightSpeed = .8 * rawRightSpeed;
+    	   	if (time > (3*accelerationInterval) && timer.get() < (4*accelerationInterval)) {
+    	   		state++;
+    	   	}
+    		if (Math.abs(rawLeftSpeed) < .8 * rawLeftSpeed && Math.abs(rawRightSpeed) < .8 * rawRightSpeed) {
     			timer.reset();
+    			state = 2;
+    			timeAddition = accelerationInterval;
     		}
     		break;
     	case 4:
-    		if (timer.get() > (4*accelerationInterval)) {
-    			leftSpeed = rawLeftSpeed;
-    			rightSpeed = rawRightSpeed;
-    		}
-    		if (Math.abs(rawLeftSpeed) < .2 * rawLeftSpeed && Math.abs(rawRightSpeed) < .2 * rawRightSpeed) {
+    		time = timer.get() + timeAddition;
+    		timeAddition = 0;
+    		leftSpeed = rawLeftSpeed;
+    		rightSpeed = rawRightSpeed;
+    		if (Math.abs(rawLeftSpeed) < rawLeftSpeed && Math.abs(rawRightSpeed) < rawRightSpeed) {
     			timer.reset();
+    			state = 3;
+    			timeAddition = 2*accelerationInterval;
     		}
     		break;
     	}
