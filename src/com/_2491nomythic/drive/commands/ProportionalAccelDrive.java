@@ -33,6 +33,9 @@ public class ProportionalAccelDrive extends CommandBase {
     	rawLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, .05);
     	rawRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, .05);
     	
+    	if (Math.abs(oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveAxis, .1)) <= .1) {
+    		timer.reset();
+    	}
     	
     	switch (state) {
     	case 0:
