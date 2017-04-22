@@ -3,6 +3,10 @@ package com._2491nomythic.who.subsystems;
 import com._2491nomythic.who.commands.ProportionalAccelDrive;
 import com._2491nomythic.who.settings.Constants;
 import com.ctre.CANTalon;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
     private CANTalon left1, left2, right1, right2;
+    private AHRS gyro;
     
     private static Drivetrain instance;
 	
@@ -28,6 +33,15 @@ public class Drivetrain extends Subsystem {
     	left2 = new CANTalon(Constants.driveTalonLeft2Channel);
     	right1 = new CANTalon(Constants.driveTalonRight1Channel);
     	right2 = new CANTalon(Constants.driveTalonRight2Channel);
+    	
+    	try {
+            /* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
+            /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
+            /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
+            gyro = new AHRS(SerialPort.Port.kMXP); 
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+        }
     }
     
     /**
@@ -41,6 +55,10 @@ public class Drivetrain extends Subsystem {
 	public void drive(double leftSpeed, double rightSpeed) {
 		driveLeft(leftSpeed);
 		driveRight(rightSpeed);
+	}
+	
+	public double getGyroAngle() {
+		return (gyro.getAngle() % 360 + 360) % 360;
 	}
 	
 	/**
