@@ -99,23 +99,5 @@ public class Drivetrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new ProportionalAccelDrive());
     }
-
-	public void resetGyro() {
-		gyro.reset();
-	}
-
-	public void stop() {
-		drive(0, 0);
-	}
-
-	public double getRawGyroAngle() {
-		return gyro.getAngle();
-	}
-
-	public double getAvrageEncoderDistance() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
 
