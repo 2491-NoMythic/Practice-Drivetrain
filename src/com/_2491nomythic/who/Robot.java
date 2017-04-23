@@ -2,7 +2,7 @@
 package com._2491nomythic.who;
 
 import com._2491nomythic.who.commands.CommandBase;
-import edu.wpi.first.wpilibj.DriverStation;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,7 +34,6 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser<Command>();
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        DriverStation.getInstance();
     }
 	
 	/**
