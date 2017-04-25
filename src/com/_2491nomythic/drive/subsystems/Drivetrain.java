@@ -3,13 +3,18 @@ package com._2491nomythic.drive.subsystems;
 import com._2491nomythic.drive.commands.ProportionalAccelDrive;
 import com._2491nomythic.drive.settings.Constants;
 import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * The system used to move the robot
  */
 public class Drivetrain extends Subsystem {
     private CANTalon left1, left2, right1, right2;
+    private AHRS gyro;
     
     private static Drivetrain instance;
 	
@@ -28,6 +33,13 @@ public class Drivetrain extends Subsystem {
     	left2 = new CANTalon(Constants.driveTalonLeft2Channel);
     	right1 = new CANTalon(Constants.driveTalonRight1Channel);
     	right2 = new CANTalon(Constants.driveTalonRight2Channel);
+    	
+    	 try {
+             gyro = new AHRS(SPI.Port.kMXP);
+         } 
+    	 catch (RuntimeException ex ) {
+             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+         }
     }
     
     /**
@@ -74,6 +86,10 @@ public class Drivetrain extends Subsystem {
 	public void driveRight(double speed) {
 		right1.set(-1.0 * speed);
 		right2.set(-1.0 * speed);
+	}
+	
+	public double getRawGyro() {
+		return gyro.getAngle();
 	}
 
     public void initDefaultCommand() {
