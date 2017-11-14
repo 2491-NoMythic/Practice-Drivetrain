@@ -48,3 +48,4 @@ Temporary Items
 *.jar
 build/jars/NetworkTables.jar
 /bin/
+bin/com/_2491nomythic/drive/commands/Drive.class

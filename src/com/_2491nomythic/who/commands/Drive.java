@@ -11,6 +11,7 @@ public class Drive extends CommandBase {
     public Drive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -39,5 +40,6 @@ public class Drive extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
