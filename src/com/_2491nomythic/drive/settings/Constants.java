@@ -7,9 +7,13 @@ public class Constants {
 	
 	// CAN Channels
 	public static final int driveTalonLeft1Channel = 13;
+	//Originally 14
 	public static final int driveTalonLeft2Channel = 12;
+	//Originally 11
 	public static final int driveTalonRight1Channel = 16;
+	//Originally 12
 	public static final int driveTalonRight2Channel = 19;
+	//Originally 13
 
 	public static final int driveTalonFrontSidewaysChannel = 17;
 	public static final int driveTalonRearSidewaysChannel = 21;
