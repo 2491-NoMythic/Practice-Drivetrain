@@ -10,6 +10,7 @@ public class Constants {
 	public static final int driveTalonLeft2Channel = 12;
 	public static final int driveTalonRight1Channel = 16;
 	public static final int driveTalonRight2Channel = 19;
+
 	public static final int driveTalonFrontSidewaysChannel = 17;
 	public static final int driveTalonRearSidewaysChannel = 21;
 
