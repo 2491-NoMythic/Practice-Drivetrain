@@ -1,10 +1,8 @@
 package com._2491nomythic.drive;
 
 import com._2491nomythic.drive.settings.Constants;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,6 +21,7 @@ public class OI {
 	
 	public void init() {
 		controllers[0] = new Joystick(Constants.ControllerOnePort);
+	}
 	
 	/**
 	 * Get an axis from a controller that is automatically squared and deadzoned
@@ -33,8 +32,6 @@ public class OI {
 	 *            The id of the axis (for use in getRawAxis)
 	 * @return the squared, deadzoned result from running getRawAxis
 	 */
-		
-	}
 	
 	public double getAxisDeadzonedSquared(int joystickID, int axisID, double deadzone) {
 		double result = controllers[joystickID].getRawAxis(axisID);
