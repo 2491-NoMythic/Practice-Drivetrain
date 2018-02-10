@@ -2,7 +2,6 @@ package com._2491nomythic.drive;
 
 import com._2491nomythic.drive.settings.Constants;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * This class is the glue that binds the controls on the physical operator
