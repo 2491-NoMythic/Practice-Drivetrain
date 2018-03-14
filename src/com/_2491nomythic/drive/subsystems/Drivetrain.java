@@ -1,6 +1,6 @@
 package com._2491nomythic.drive.subsystems;
 
-import com._2491nomythic.drive.commands.QuadraticDrive;
+import com._2491nomythic.drive.commands.QuadraticDrive2Stick;
 import com._2491nomythic.drive.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -97,7 +97,7 @@ public class Drivetrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new QuadraticDrive());
+    	setDefaultCommand(new QuadraticDrive2Stick());
     }
 }
 
